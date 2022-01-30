@@ -1,9 +1,19 @@
-.PHONY: build
-build:
-	@yarn build
+.PHONY: build fmt clean
 
-.PHONY: fmt
+default: all
+
+all: clean fmt build
+
+build:
+	$(info ******************** build ********************)
+	yarn build
+
 fmt:
-	@./node_modules/.bin/prettier --write --plugin-search-dir=. ./**/*.svelte
-	@./node_modules/.bin/prettier --write --plugin-search-dir=. ./**/*.html
-	@./node_modules/.bin/prettier --write --plugin-search-dir=. ./**/*.js
+	$(info ******************** fmt ********************)
+	./node_modules/.bin/prettier --write --plugin-search-dir=. ./**/*.svelte
+	./node_modules/.bin/prettier --write --plugin-search-dir=. ./**/*.html
+	./node_modules/.bin/prettier --write --plugin-search-dir=. ./**/*.js
+
+clean:
+	$(info ******************** clean ********************)
+	rm -rf public/build

@@ -34,6 +34,7 @@ fmt:
 vet:
 	$(info ******************** vet ********************)
 	go vet ./...
+	staticcheck ./...
 
 test:
 	$(info ******************** test ********************)
@@ -47,6 +48,7 @@ mod:
 install_deps:
 	$(info ******************** install_deps ********************)
 	go get -v ./...
+	go install honnef.co/go/tools/cmd/staticcheck@latest
 
 clean:
 	$(info ******************** clean ********************)

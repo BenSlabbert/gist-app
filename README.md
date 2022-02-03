@@ -7,3 +7,7 @@ This app uses a [Github](https://github.com/) access token to do simple CRUD on 
 With no access token, only public gists are available.
 
 create token: https://github.com/settings/tokens/new
+
+## Testing
+
+Make sure to set environment variable `GITHUB_API_TOKEN` for testing.

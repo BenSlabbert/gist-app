@@ -1,5 +1,7 @@
 SHELL := /bin/bash
-$(shell source .env)
+
+include .env
+export
 
 BIN="./bin"
 SRC=$(shell find . -name "*.go")

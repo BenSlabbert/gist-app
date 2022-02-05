@@ -96,10 +96,6 @@ func TestFiles_MarshalJSON(t *testing.T) {
 }
 
 func TestApi_GetRateLimit(t *testing.T) {
-	// todo implement a rate limiter
-	//  use this endpoint when starting to see how many requests we can make
-	//  then limit the requests accordingly
-
 	rl, err := api.GetRateLimit()
 	if err != nil {
 		t.Fatal(err)

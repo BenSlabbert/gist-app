@@ -3,3 +3,4 @@ bin/
 api_token
 *.json
 .env
+.gist-app.yaml

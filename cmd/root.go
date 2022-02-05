@@ -2,7 +2,9 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/BenSlabbert/gist-app/pkg/env"
 	"github.com/spf13/cobra"
+	"log"
 	"os"
 
 	homedir "github.com/mitchellh/go-homedir"
@@ -58,6 +60,7 @@ func initConfig() {
 
 		// Search config in home directory with name ".gist-app" (without extension).
 		viper.AddConfigPath(home)
+		viper.SetConfigType("yaml")
 		viper.SetConfigName(".gist-app")
 	}
 
@@ -65,6 +68,8 @@ func initConfig() {
 
 	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err == nil {
-		fmt.Fprintln(os.Stderr, "Using config file:", viper.ConfigFileUsed())
+		_, _ = fmt.Fprintln(os.Stderr, "Using config file:", viper.ConfigFileUsed())
 	}
+
+	log.Printf("username from config: %s", viper.Get(env.GithubApiUsername))
 }

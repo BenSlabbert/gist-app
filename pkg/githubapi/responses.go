@@ -1,5 +1,7 @@
 package githubapi
 
+import "time"
+
 // https://json2struct.mervine.net/
 
 type GetGistsResponse []struct {
@@ -111,4 +113,79 @@ type GistResponse struct {
 	UpdatedAt string      `json:"updated_at"`
 	URL       string      `json:"url"`
 	User      interface{} `json:"user"`
+}
+
+type GistCreateResponse struct {
+	Url         string    `json:"url"`
+	ForksUrl    string    `json:"forks_url"`
+	CommitsUrl  string    `json:"commits_url"`
+	Id          string    `json:"id"`
+	NodeId      string    `json:"node_id"`
+	GitPullUrl  string    `json:"git_pull_url"`
+	GitPushUrl  string    `json:"git_push_url"`
+	HtmlUrl     string    `json:"html_url"`
+	CreatedAt   time.Time `json:"created_at"`
+	UpdatedAt   time.Time `json:"updated_at"`
+	Description string    `json:"description"`
+	Comments    int       `json:"comments"`
+	CommentsUrl string    `json:"comments_url"`
+}
+
+type RateLimitResponse struct {
+	Resources struct {
+		Core struct {
+			Limit     int `json:"limit"`
+			Used      int `json:"used"`
+			Remaining int `json:"remaining"`
+			Reset     int `json:"reset"`
+		} `json:"core"`
+		Search struct {
+			Limit     int `json:"limit"`
+			Used      int `json:"used"`
+			Remaining int `json:"remaining"`
+			Reset     int `json:"reset"`
+		} `json:"search"`
+		Graphql struct {
+			Limit     int `json:"limit"`
+			Used      int `json:"used"`
+			Remaining int `json:"remaining"`
+			Reset     int `json:"reset"`
+		} `json:"graphql"`
+		IntegrationManifest struct {
+			Limit     int `json:"limit"`
+			Used      int `json:"used"`
+			Remaining int `json:"remaining"`
+			Reset     int `json:"reset"`
+		} `json:"integration_manifest"`
+		SourceImport struct {
+			Limit     int `json:"limit"`
+			Used      int `json:"used"`
+			Remaining int `json:"remaining"`
+			Reset     int `json:"reset"`
+		} `json:"source_import"`
+		CodeScanningUpload struct {
+			Limit     int `json:"limit"`
+			Used      int `json:"used"`
+			Remaining int `json:"remaining"`
+			Reset     int `json:"reset"`
+		} `json:"code_scanning_upload"`
+		ActionsRunnerRegistration struct {
+			Limit     int `json:"limit"`
+			Used      int `json:"used"`
+			Remaining int `json:"remaining"`
+			Reset     int `json:"reset"`
+		} `json:"actions_runner_registration"`
+		Scim struct {
+			Limit     int `json:"limit"`
+			Used      int `json:"used"`
+			Remaining int `json:"remaining"`
+			Reset     int `json:"reset"`
+		} `json:"scim"`
+	} `json:"resources"`
+	Rate struct {
+		Limit     int `json:"limit"`
+		Used      int `json:"used"`
+		Remaining int `json:"remaining"`
+		Reset     int `json:"reset"`
+	} `json:"rate"`
 }

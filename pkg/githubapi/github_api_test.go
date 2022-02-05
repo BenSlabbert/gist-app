@@ -9,7 +9,7 @@ import (
 var api *Api
 
 func TestMain(m *testing.M) {
-	api = NewApi("BenSlabbert", os.Getenv(env.GithubApiToken))
+	api = NewApi(env.GithubApiUsername, os.Getenv(env.GithubApiToken))
 	exitVal := m.Run()
 	os.Exit(exitVal)
 }

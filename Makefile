@@ -1,3 +1,6 @@
+SHELL := /bin/bash
+$(shell source .env)
+
 BIN="./bin"
 SRC=$(shell find . -name "*.go")
 GIT_COMMIT_ID = $(shell git log --format="%H" -n 1)

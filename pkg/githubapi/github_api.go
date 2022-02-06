@@ -341,7 +341,7 @@ func (api *Api) executeRequest(req *http.Request) (*http.Response, error) {
 	log.Println("waiting for token from rate limiter")
 	start := time.Now()
 	_ = rl.Take()
-	log.Printf("got token from rate limiter, executing request (wait time: %s)", time.Now().Sub(start))
+	log.Printf("got token from rate limiter, executing request (wait time: %s)", time.Since(start))
 
 	resp, err := api.httpClient.Do(req)
 	api.rateLimitInfo.update(resp.Header)

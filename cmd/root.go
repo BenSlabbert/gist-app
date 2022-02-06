@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"github.com/BenSlabbert/gist-app/pkg/env"
+	"github.com/BenSlabbert/gist-app/pkg/githubapi"
 	"github.com/spf13/cobra"
 	"log"
 	"os"
@@ -12,17 +13,17 @@ import (
 )
 
 var cfgFile string
+var api *githubapi.Api
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "gist-app",
-	Short: "A brief description of your application",
-	Long: `A longer description that spans multiple lines and likely contains
-examples and usage of using your application. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "Manage your Github Gists from the terminal!",
+	Long: `
+This cli allows you to perform simple CRUD on your Github Gists.
+You need to provide Github Username as well as a Github Access token, create tokens here: https://github.com/settings/tokens/new.
+For your peace of mind, limit the access of the token to only Gists.
+`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	// Run: func(cmd *cobra.Command, args []string) { },
@@ -50,12 +51,15 @@ func init() {
 
 // initConfig reads in config file and ENV variables if set.
 func initConfig() {
+	var err error
+
 	if cfgFile != "" {
 		// Use config file from the flag.
 		viper.SetConfigFile(cfgFile)
 	} else {
 		// Find home directory.
-		home, err := homedir.Dir()
+		var home string
+		home, err = homedir.Dir()
 		cobra.CheckErr(err)
 
 		// Search config in home directory with name ".gist-app" (without extension).
@@ -67,9 +71,12 @@ func initConfig() {
 	viper.AutomaticEnv() // read in environment variables that match
 
 	// If a config file is found, read it in.
-	if err := viper.ReadInConfig(); err == nil {
+	if err = viper.ReadInConfig(); err == nil {
 		_, _ = fmt.Fprintln(os.Stderr, "Using config file:", viper.ConfigFileUsed())
 	}
+	cobra.CheckErr(err)
 
 	log.Printf("username from config: %s", viper.Get(env.GithubApiUsername))
+	api, err = githubapi.NewApi(viper.GetString(env.GithubApiUsername), viper.GetString(env.GithubApiToken))
+	cobra.CheckErr(err)
 }

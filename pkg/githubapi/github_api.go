@@ -5,6 +5,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"github.com/BenSlabbert/gist-app/pkg/util"
 	"go.uber.org/ratelimit"
 	"io/ioutil"
 	"log"
@@ -47,16 +48,17 @@ func (rli *rateLimitInfo) update(header http.Header) {
 		rli.remaining = int(remaining)
 	}
 
-	reset, err := strconv.ParseInt(header.Get("X-Ratelimit-Reset"), 10, 32)
+	tm, err := util.UnixTimestampStringToTime(header.Get("X-Ratelimit-Reset"))
 	if err == nil {
-		unixTimestamp, err := strconv.ParseInt(fmt.Sprintf("%d", reset), 10, 64)
-		if err == nil {
-			rli.reset = time.Unix(unixTimestamp, 0)
-		}
+		rli.reset = tm
 	}
 }
 
 func NewApi(username string, token string) (*Api, error) {
+	if username == "" || token == "" {
+		return nil, fmt.Errorf("username and token are required values")
+	}
+
 	a := &Api{
 		username:      username,
 		token:         token,
@@ -337,8 +339,9 @@ func (api *Api) executeRequest(req *http.Request) (*http.Response, error) {
 	rl := ratelimit.New(int(reqPerSeconds), ratelimit.WithSlack(5))
 
 	log.Println("waiting for token from rate limiter")
+	start := time.Now()
 	_ = rl.Take()
-	log.Println("got token from rate limiter, executing request")
+	log.Printf("got token from rate limiter, executing request (wait time: %s)", time.Now().Sub(start))
 
 	resp, err := api.httpClient.Do(req)
 	api.rateLimitInfo.update(resp.Header)

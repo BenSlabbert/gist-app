@@ -1,12 +1,16 @@
-.PHONY: build fmt clean
+.PHONY: build fmt clean install_deps
 
 default: all
 
-all: clean fmt build
+all: clean install_deps fmt build
 
 build:
 	$(info ******************** build ********************)
 	yarn build
+
+install_deps:
+	$(info ******************** install_deps ********************)
+	yarn install
 
 fmt:
 	$(info ******************** fmt ********************)

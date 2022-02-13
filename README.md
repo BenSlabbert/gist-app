@@ -11,3 +11,7 @@ create token: https://github.com/settings/tokens/new
 ## Testing
 
 Make sure to set environment variable `API_TOKEN` for testing.
+
+## Build status
+
+[![Go](https://github.com/BenSlabbert/gist-app/actions/workflows/go.yml/badge.svg?branch=master)](https://github.com/BenSlabbert/gist-app/actions/workflows/go.yml)

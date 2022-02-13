@@ -12,7 +12,7 @@ $(info BIN output dir: ${BIN})
 $(info GIT_COMMIT_ID: ${GIT_COMMIT_ID})
 $(info GIT_BRANCH_NAME: ${GIT_BRANCH_NAME})
 
-.PHONY: web build upx fmt vet test mod install_deps clean
+.PHONY: web build upx fmt vet test mod install_deps clean install_upx
 
 default: all
 
@@ -58,3 +58,10 @@ install_deps:
 clean:
 	$(info ******************** clean ********************)
 	rm -rf $(BIN)
+
+install_upx:
+	$(info ******************** install_upx ********************)
+	curl -L https://github.com/upx/upx/releases/download/v3.96/upx-3.96-amd64_linux.tar.xz -o /tmp/upx.tar.xz
+	tar xvf /tmp/upx.tar.xz -C /tmp/upx
+	mv /tmp/upx-3.96-amd64_linux/upx /usr/local/bin/upx
+	upx --version

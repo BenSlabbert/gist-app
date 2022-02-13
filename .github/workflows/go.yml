@@ -33,3 +33,13 @@ jobs:
 
     - name: Build
       run: make web build upx
+
+    - name: Generate bin hashes
+      run: >
+        sha256sum ./bin/gist-app > ./bin/gist-app.sha256sum &&
+        sha256sum ./bin/gist-app.upx > ./bin/gist-app.upx.sha256sum
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: artifacts
+        path: ./bin/

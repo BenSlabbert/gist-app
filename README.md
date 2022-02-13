@@ -10,4 +10,4 @@ create token: https://github.com/settings/tokens/new
 
 ## Testing
 
-Make sure to set environment variable `GITHUB_API_TOKEN` for testing.
+Make sure to set environment variable `API_TOKEN` for testing.

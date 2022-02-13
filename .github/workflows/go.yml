@@ -23,6 +23,11 @@ jobs:
         sudo apt-get install -y build-essential git tar curl nodejs npm &&
         sudo npm install --global yarn
 
+    - name: Setup .env
+      run: >
+        echo "API_USERNAME=$API_USERNAME" >> .env &&
+        echo "API_TOKEN=$API_TOKEN" >> .env
+
     - name: Install upx
       run: make install_upx
 

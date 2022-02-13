@@ -15,7 +15,7 @@ import (
 var api *Api
 
 func TestMain(m *testing.M) {
-	a, err := NewApi(os.Getenv(env.GithubApiUsername), os.Getenv(env.GithubApiToken))
+	a, err := NewApi(os.Getenv(env.ApiUsername), os.Getenv(env.ApiToken))
 	if err != nil {
 		log.Println(err)
 		os.Exit(1)

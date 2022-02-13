@@ -76,7 +76,7 @@ func initConfig() {
 	}
 	cobra.CheckErr(err)
 
-	log.Printf("username from config: %s", viper.Get(env.GithubApiUsername))
-	api, err = githubapi.NewApi(viper.GetString(env.GithubApiUsername), viper.GetString(env.GithubApiToken))
+	log.Printf("username from config: %s", viper.Get(env.ApiUsername))
+	api, err = githubapi.NewApi(viper.GetString(env.ApiUsername), viper.GetString(env.ApiToken))
 	cobra.CheckErr(err)
 }

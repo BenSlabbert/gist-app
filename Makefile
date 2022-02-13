@@ -62,6 +62,7 @@ clean:
 install_upx:
 	$(info ******************** install_upx ********************)
 	curl -L https://github.com/upx/upx/releases/download/v3.96/upx-3.96-amd64_linux.tar.xz -o /tmp/upx.tar.xz
+	mkdir /tmp/upx
 	tar xvf /tmp/upx.tar.xz -C /tmp/upx
-	mv /tmp/upx-3.96-amd64_linux/upx /usr/local/bin/upx
+	mv /tmp/upx/upx-3.96-amd64_linux/upx /usr/local/bin/upx
 	upx --version
